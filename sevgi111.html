@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arka Planda MP3 Çalma - Alternatif</title>
+</head>
+<body>
+
+  <h1>Arka planda müzik çalıyor...</h1>
+
+  <button id="playPause">Çal / Durdur</button>
+
+  <script>
+    const audio = new Audio('ses.mp3');  // dosya yolu doğru olmalı
+    audio.loop = true;
+    audio.muted = true;  // otomatik çalmak için sessiz başlat
+
+    // sayfa yüklendiğinde otomatik başlat
+    window.addEventListener('load', () => {
+      audio.play().catch(() => {
+        console.log('Otomatik oynatma engellendi, butona basılmalı');
+      });
+    });
+
+    const btn = document.getElementById('playPause');
+    let playing = false;
+
+    btn.addEventListener('click', () => {
+      if (!playing) {
+        audio.muted = false;  // sesi aç
+        audio.play();
+        btn.textContent = 'Durdur';
+        playing = true;
+      } else {
+        audio.pause();
+        btn.textContent = 'Çal';
+        playing = false;
+      }
+    });
+  </script>
+
+</body>
+</html>
